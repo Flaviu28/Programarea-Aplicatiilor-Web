@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmente :: head(${produs.id == null ? 'Produs nou' : 'Editare produs'})}"></head>
+<body>
+<header th:replace="~{fragmente :: meniu}"></header>
+<main>
+    <h1 th:text="${produs.id == null ? 'Produs nou' : 'Editare produs'}">Produs</h1>
+
+    <form class="formular" th:action="@{/produse}" th:object="${produs}" method="post" novalidate>
+        <input type="hidden" th:field="*{id}">
+
+        <label for="nume">Nume echipament</label>
+        <input type="text" th:field="*{nume}" th:errorclass="invalid">
+        <span class="eroare-camp" th:if="${#fields.hasErrors('nume')}" th:errors="*{nume}"></span>
+
+        <label for="descriere">Descriere</label>
+        <textarea rows="3" th:field="*{descriere}" th:errorclass="invalid"></textarea>
+        <span class="eroare-camp" th:if="${#fields.hasErrors('descriere')}" th:errors="*{descriere}"></span>
+
+        <div class="rand">
+            <div>
+                <label for="pret">Preț (lei)</label>
+                <input type="text" inputmode="decimal" th:field="*{pret}" th:errorclass="invalid">
+                <span class="eroare-camp" th:if="${#fields.hasErrors('pret')}" th:errors="*{pret}"></span>
+            </div>
+            <div>
+                <label for="stoc">Stoc</label>
+                <input type="number" min="0" th:field="*{stoc}" th:errorclass="invalid">
+                <span class="eroare-camp" th:if="${#fields.hasErrors('stoc')}" th:errors="*{stoc}"></span>
+            </div>
+        </div>
+
+        <label for="categorieId">Categorie</label>
+        <select th:field="*{categorieId}" th:errorclass="invalid">
+            <option value="">- alegeți o categorie -</option>
+            <option th:each="c : ${categorii}" th:value="${c.id}" th:text="${c.nume}"></option>
+        </select>
+        <span class="eroare-camp" th:if="${#fields.hasErrors('categorieId')}" th:errors="*{categorieId}"></span>
+
+        <div class="butoane">
+            <button type="submit" class="buton">Salvează</button>
+            <a th:href="@{/produse}">Renunță</a>
+        </div>
+    </form>
+</main>
+</body>
+</html>

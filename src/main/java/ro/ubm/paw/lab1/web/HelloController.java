@@ -17,7 +17,7 @@ public class HelloController {
         this.orderService = orderService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/salut")
     public String index() {
         return "Salut din " + numeAplicatie + "!";
     }

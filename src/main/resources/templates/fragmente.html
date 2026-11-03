@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(titlu)">
+    <meta charset="UTF-8">
+    <title th:text="${titlu} + ' - Fitness Shop'">Fitness Shop</title>
+    <style>
+        body { font-family: system-ui, sans-serif; margin: 0; padding: 20px; background: #f4f6f8; color: #222; }
+        header { margin-bottom: 25px; padding-bottom: 10px; border-bottom: 2px solid #ddd; }
+        nav a { margin-right: 15px; text-decoration: none; font-weight: bold; color: #2563eb; }
+        table { width: 100%; border-collapse: collapse; background: white; margin-top: 15px; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #e2e8f0; }
+        .numar { text-align: right; }
+        .epuizat { color: #dc2626; font-weight: bold; }
+        .mesaj { background: #dcfce7; color: #166534; padding: 10px 15px; border-radius: 4px; margin-bottom: 15px; }
+        .eroare-camp { color: #dc2626; font-size: 0.85em; display: block; margin-top: 4px; }
+        .invalid { border: 1px solid #dc2626 !important; background: #fef2f2; }
+        .buton { background: #2563eb; color: white; padding: 8px 14px; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; display: inline-block; }
+        .link.pericol { background: none; border: none; color: #dc2626; cursor: pointer; text-decoration: underline; padding: 0; font: inherit; }
+        form.filtre { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
+        form.formular { background: white; padding: 20px; border-radius: 8px; max-width: 500px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        form.formular label { display: block; margin-top: 12px; font-weight: 600; }
+        form.formular input, form.formular select, form.formular textarea { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .rand { display: flex; gap: 10px; }
+        .rand > div { flex: 1; }
+        .butoane { margin-top: 20px; display: flex; gap: 10px; align-items: center; }
+    </style>
+</head>
+<body>
+    <header th:fragment="meniu">
+        <h2>Fitness Equipment Shop</h2>
+        <nav>
+            <a th:href="@{/produse}">Catalog Echipamente</a>
+            <a th:href="@{/produse/nou}">+ Adaugă Produs</a>
+        </nav>
+    </header>
+
+    <div th:fragment="mesaje">
+        <div class="mesaj" th:if="${mesaj}" th:text="${mesaj}"></div>
+    </div>
+</body>
+</html>
