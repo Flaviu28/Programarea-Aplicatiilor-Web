@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: paw-postgres
+    environment:
+      POSTGRES_DB: paw
+      POSTGRES_USER: paw
+      POSTGRES_PASSWORD: paw
+    ports:
+      - "5432:5432"
+    volumes:
+      - paw-pgdata:/var/lib/postgresql/data
+
+volumes:
+  paw-pgdata:

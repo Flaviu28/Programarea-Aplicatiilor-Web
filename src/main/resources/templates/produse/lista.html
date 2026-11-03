@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmente :: head('Produse')}"></head>
+<body>
+<header th:replace="~{fragmente :: meniu}"></header>
+<main>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>Catalog Echipamente</h1>
+        <a class="buton" th:href="@{/produse/nou}">+ Produs nou</a>
+    </div>
+
+    <div th:replace="~{fragmente :: mesaje}"></div>
+
+    <form class="filtre" th:action="@{/produse}" method="get">
+        <input type="search" name="q" th:value="${q}" placeholder="Caută echipament...">
+        <select name="categorieId">
+            <option value="">Toate categoriile</option>
+            <option th:each="c : ${categorii}" 
+                    th:value="${c.id}" 
+                    th:text="${c.nume}"
+                    th:selected="${c.id == categorieSelectata}"></option>
+        </select>
+        <button type="submit" class="buton">Filtrează</button>
+        <a th:href="@{/produse}">Resetează</a>
+    </form>
+
+    <table th:if="${!produse.isEmpty()}">
+        <thead>
+        <tr>
+            <th>Nume</th>
+            <th>Categorie</th>
+            <th class="numar">Preț (lei)</th>
+            <th class="numar">Stoc</th>
+            <th>Acțiuni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${produse}">
+            <td th:text="${p.nume}">Nume</td>
+            <td th:text="${p.categorie.nume}">Categorie</td>
+            <td class="numar" th:text="${#numbers.formatDecimal(p.pret, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+            <td class="numar" th:classappend="${p.stoc == 0} ? 'epuizat'" th:text="${p.stoc}">0</td>
+            <td>
+                <a th:href="@{/produse/{id}/editare(id=${p.id})}">Editează</a>
+                &nbsp;|&nbsp;
+                <form th:action="@{/produse/{id}/stergere(id=${p.id})}" method="post" style="display:inline"
+                      onsubmit="return confirm('Sigur doriți să ștergeți produsul?');">
+                    <button type="submit" class="link pericol">Șterge</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p th:if="${produse.isEmpty()}">Niciun echipament găsit în stoc.</p>
+</main>
+</body>
+</html>
